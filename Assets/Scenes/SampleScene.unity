@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 1268432107}
   - component: {fileID: 1268432106}
   - component: {fileID: 1268432105}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plataform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,6 +529,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpStrength: 10
+  distanteToGround: 1.4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!50 &1531777705
 Rigidbody2D:
   serializedVersion: 4

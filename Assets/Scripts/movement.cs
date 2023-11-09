@@ -12,6 +12,11 @@ public class movement : MonoBehaviour
     private bool facingRight = true;
     private int facingDir = 1;
 
+    [Header("Colliders info")]
+    [SerializeField] private float distanteToGround;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private bool isGrounded;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +28,13 @@ public class movement : MonoBehaviour
         Movement();
         CheckInputs();
         FlipController();
+        CheckCollisions();
         Animations();
+    }
+
+    private void CheckCollisions()
+    {
+        isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.down, distanteToGround, groundLayer);
     }
 
     private void Movement()
@@ -43,7 +54,8 @@ public class movement : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector2(xInput, jumpStrength);
+        if(isGrounded)
+            rb.velocity = new Vector2(xInput, jumpStrength);
     }
 
     private void Animations()
@@ -65,5 +77,10 @@ public class movement : MonoBehaviour
             Flip();
         else if (xInput < 0 && facingRight)
             Flip();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - distanteToGround));
     }
 }
